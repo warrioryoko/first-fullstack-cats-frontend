@@ -1,26 +1,37 @@
 import React from 'react';
-import logo from './logo.svg';
+import { fetchCats } from './cat-api.js';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+    state = {
+        cats: []
+    }
+
+    componentDidMount = async () => {
+        const data = await fetchCats()
+
+        this.setState({
+            cats: data.body
+        })
+    }
+
+    render() {
+        return (
+            <div className="App">
+            <header className="App-header">
+                <h2>Cats:</h2>
+                {
+                    this.state.cats.map((cat) => {
+                        return <div>
+                            name: {cat.name} | breed: {cat.breed} | age: {cat.age} | fed recently: {`${cat.fed_recently}`}
+                        </div>
+                    })
+                }
+            </header>
+            </div>
+        );
+    }
 }
+
 
 export default App;
