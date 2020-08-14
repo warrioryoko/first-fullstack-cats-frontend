@@ -2,7 +2,7 @@
 
 import request from 'superagent';
 
-const URL = 'https://quiet-depths-77131.herokuapp.com';
+const URL = process.env.REACT_APP_API_URL;
 
 export function fetchCats() {
     return request.get(`${URL}/cats`);
@@ -10,4 +10,8 @@ export function fetchCats() {
 
 export function fetchCat(id) {
     return request.get(`${URL}/cats/${id}`);
+}
+
+export function createCat(catData) {
+    return request.post(`${URL}/cats`, catData);
 }
