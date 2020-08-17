@@ -12,17 +12,32 @@ export default class CreatePage extends Component {
     handleSubmit = async (e) => {
         e.preventDefault();
 
-        await createCat({
-            name: this.state.name,
-            breed: this.state.breed,
-            age: this.state.name
-        });
+        try {
+            await createCat({
+                name: this.state.name,
+                breed: this.state.breed,
+                age: this.state.age,
+                fed_recently: this.state.fed_recently
+            });
+    
+            this.setState({
+                name: '',
+                breed: '',
+                age: 1,
+                fed_recently: true
+            });
+        } catch(e) {
+            console.log(e.message)
+        }
 
-        this.setState({
-            name: '',
-            breed: '',
-            age: 1,
-        })
+    }
+
+    str2bool = (value) => {
+        if (value && typeof value === 'string') {
+            if (value.toLowerCase() === "yes") return true;
+            if (value.toLowerCase() === "no") return false;
+        }
+        return value;
     }
 
     handleNameChange = e => {
@@ -35,6 +50,13 @@ export default class CreatePage extends Component {
 
     handleAgeChange = e => {
         this.setState({ age: e.target.value });
+    }
+
+    handleFedChange = e => {
+        
+        this.setState({ fed_recently: this.str2bool(e.target.value) })
+
+        console.log(e.target.value);
     }
 
     render() {
@@ -53,6 +75,16 @@ export default class CreatePage extends Component {
                     <label>
                         Age: 
                         <input onChange={this.handleAgeChange} type="number" value={this.state.age} />
+                    </label>
+                    <label>
+                        <select onChange={this.handleFedChange} value={this.state.fed_recently}>
+                            <option>
+                                yes
+                            </option>
+                            <option>
+                                no
+                            </option>
+                        </select>
                     </label>
                     <button>Adopt Cat</button>
                 </form>

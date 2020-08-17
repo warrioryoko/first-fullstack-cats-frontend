@@ -18,7 +18,13 @@ export default class DetailPage extends Component {
         return (
             <div>
                 This is your cute cat! {this.state.cat.name} is a {this.state.cat.breed}, and is {this.state.cat.age} years old!
+
+                {this.state.cat.fed_recently ? (
+                    <p>{this.state.cat.name} has been fed recently!</p>
+                ) : (
+                    <p>Uh oh! {this.state.cat.name} has not been fed!</p>
+                )}
             </div>
-        )
+        );
     }
 }

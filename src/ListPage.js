@@ -21,7 +21,7 @@ export default class ListPage extends Component {
             <div className="cats">
                 {
                     this.state.cats.map((cat) => {
-                    return <Link className="cat" to={`/detail/${cat.id}`} //key={`${guitar.id}-${guitar.color}`}>
+                    return <Link className="cat" to={`/detail/${cat.id}`} key={`${cat.id}-${cat.name}`}>
                         <p>Name: {cat.name}</p>
                         <p>Breed: {cat.breed}</p>
                         <p>Age: {cat.age}</p>
