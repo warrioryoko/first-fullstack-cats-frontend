@@ -29,6 +29,11 @@ export default class ListPage extends Component {
                         <p>Name: {cat.name}</p>
                         <p>Breed: {cat.breed}</p>
                         <p>Age: {cat.age}</p>
+                        {cat.fed_recently ? (
+                    <p>Fed Recently: True</p>
+                ) : (
+                    <p>Fed Recently: False</p>
+                )}
                         <p>Favorite Toy: {cat.favorite_toy}</p>
                     </Link>
                     })

@@ -47,9 +47,9 @@ export default class DetailPage extends Component {
             const updatedCat = await fetchCat(this.props.match.params.id)
 
             this.setState({
-                name: '',
-                breed: '',
-                age: 1,
+                name: this.state.name,
+                breed: this.state.breed,
+                age: this.state.age,
                 fed_recently: true,
                 toy_id: 1,
                 cat: updatedCat.body,

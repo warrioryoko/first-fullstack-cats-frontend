@@ -1,12 +1,24 @@
 import React, { Component } from 'react';
-import { createCat } from './cat-api.js';
+import { createCat, fetchToys } from './cat-api.js';
 import './App.css';
 
 export default class CreatePage extends Component {
     state = {
-        name: 'morgan',
-        breed: 'munchkin',
-        age: '3',
+        cat: {},
+        name: '',
+        breed: '',
+        age: 1,
+        fed_recently: true,
+        toy_id: 1,
+        toys: [],
+    }
+
+    componentDidMount = async () => {
+        const toysData = await fetchToys();
+
+        this.setState({
+            toys: toysData.body,
+        })
     }
 
     handleSubmit = async (e) => {
@@ -17,14 +29,16 @@ export default class CreatePage extends Component {
                 name: this.state.name,
                 breed: this.state.breed,
                 age: this.state.age,
-                fed_recently: this.state.fed_recently
+                fed_recently: this.state.fed_recently,
+                toy_id: this.state.toy_id,
             });
     
             this.setState({
                 name: '',
                 breed: '',
                 age: 1,
-                fed_recently: true
+                fed_recently: true,
+                toy_id: 1,
             });
         } catch(e) {
             console.log(e.message)
@@ -59,6 +73,10 @@ export default class CreatePage extends Component {
         console.log(e.target.value);
     }
 
+    handleToyChange = e => {
+        this.setState({ toy_id: e.target.value });
+    }
+
     render() {
         return (
             <div className="content">
@@ -77,6 +95,7 @@ export default class CreatePage extends Component {
                         <input onChange={this.handleAgeChange} type="number" value={this.state.age} />
                     </label>
                     <label>
+                        Fed Recently?:
                         <select onChange={this.handleFedChange} value={this.state.fed_recently}>
                             <option>
                                 yes
@@ -84,6 +103,14 @@ export default class CreatePage extends Component {
                             <option>
                                 no
                             </option>
+                        </select>
+                    </label>
+                    <label>
+                        Favorite Toy:
+                        <select onChange={this.handleToyChange} value={this.state.favorite_toy}>
+                            {
+                                this.state.toys.map((toy) => <option value={toy.id}>{toy.favorite_toy}</option>)
+                            }
                         </select>
                     </label>
                     <button>Adopt Cat</button>
