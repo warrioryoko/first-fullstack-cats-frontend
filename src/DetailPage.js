@@ -91,7 +91,7 @@ export default class DetailPage extends Component {
     }
 
     handleDelete = async () => {
-        await deleteCat(thisprops.match.params.id);
+        await deleteCat(this.props.match.params.id);
 
         this.props.history.push('/');
     }
@@ -122,6 +122,7 @@ export default class DetailPage extends Component {
                         <input onChange={this.handleAgeChange} type="number" value={this.state.age} />
                     </label>
                     <label>
+                        Fed Recently?:
                         <select onChange={this.handleFedChange} value={this.state.fed_recently}>
                             <option>
                                 yes
