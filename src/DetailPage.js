@@ -136,7 +136,7 @@ export default class DetailPage extends Component {
                         Favorite Toy:
                         <select onChange={this.handleToyChange} value={this.state.favorite_toy}>
                             {
-                                this.state.toys.map((toy) => <option value={toy.id}></option>)
+                                this.state.toys.map((toy) => <option value={toy.id}>{toy.favorite_toy}</option>)
                             }
                         </select>
                     </label>
